@@ -1,5 +1,8 @@
-FROM php:7.2
+FROM php:7.2-alpine
 
-RUN apt-get update -y && apt-get -y install rsync openssh-client
+RUN apk update
+RUN apk add rsync openssh
 
-RUN apt-get install -y zlib1g-dev && rm -rf /var/lib/apt/lists/* && docker-php-ext-configure zip --with-zlib-dir=/usr && docker-php-ext-install zip
+RUN apk add zlib-dev \
+    && docker-php-ext-configure zip --with-zlib-dir=/usr \
+    && docker-php-ext-install zip
