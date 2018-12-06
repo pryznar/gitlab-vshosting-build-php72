@@ -1,8 +1,10 @@
-FROM php:7.2-alpine
+FROM php:7.2
 
-RUN apk update
-RUN apk add rsync openssh
+RUN apt-get update -y && apt-get -y install rsync openssh-client zip libzip-dev
 
-RUN apk add zlib-dev \
-    && docker-php-ext-configure zip --with-zlib-dir=/usr \
-    && docker-php-ext-install zip
+ARG INSTALL_ZIP_ARCHIVE=true
+RUN if [ ${INSTALL_ZIP_ARCHIVE} = true ]; then \
+    # Install the zip extension
+    pecl install zip && \
+    docker-php-ext-enable zip \
+;fi
