@@ -9,4 +9,9 @@ RUN if [ ${INSTALL_ZIP_ARCHIVE} = true ]; then \
     docker-php-ext-enable zip \
 ;fi
 
-RUN docker-php-ext-install gd
+# Install the PHP gd library
+RUN docker-php-ext-configure gd \
+        --enable-gd-native-ttf \
+        --with-jpeg-dir=/usr/lib \
+        --with-freetype-dir=/usr/include/freetype2 && \
+    docker-php-ext-install gd
