@@ -1,6 +1,6 @@
 FROM php:7.2
 
-RUN apt-get update -y && apt-get -y install rsync openssh-client zip libzip-dev libpng-dev
+RUN apt-get update -y && apt-get -y install rsync openssh-client zip libzip-dev libpng-dev freetype-dev libjpeg-turbo-dev
 
 ARG INSTALL_ZIP_ARCHIVE=true
 RUN if [ ${INSTALL_ZIP_ARCHIVE} = true ]; then \
